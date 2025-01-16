@@ -1,0 +1,53 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-roboto">
+    <div class="container mx-auto p-4">
+        <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
+            <h1 class="text-2xl font-bold mb-4 text-center">GST Calculator</h1>
+            <div class="mb-4">
+                <label for="amount" class="block text-gray-700">Enter Amount:</label>
+                <input type="number" id="amount" class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="Enter amount">
+            </div>
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <button class="gst-btn bg-blue-500 text-white p-2 rounded" data-rate="0">0%</button>
+                <button class="gst-btn bg-blue-500 text-white p-2 rounded" data-rate="5">5%</button>
+                <button class="gst-btn bg-blue-500 text-white p-2 rounded" data-rate="12">12%</button>
+                <button class="gst-btn bg-blue-500 text-white p-2 rounded" data-rate="18">18%</button>
+                <button class="gst-btn bg-blue-500 text-white p-2 rounded" data-rate="28">28%</button>
+            </div>
+            <div class="mb-4">
+                <label for="gst-amount" class="block text-gray-700">GST Amount:</label>
+                <input type="text" id="gst-amount" class="w-full p-2 border border-gray-300 rounded mt-1" readonly>
+            </div>
+            <div>
+                <label for="total-amount" class="block text-gray-700">Total Amount:</label>
+                <input type="text" id="total-amount" class="w-full p-2 border border-gray-300 rounded mt-1" readonly>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.gst-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const rate = parseFloat(button.getAttribute('data-rate'));
+                const amount = parseFloat(document.getElementById('amount').value);
+                if (!isNaN(amount)) {
+                    const gstAmount = (amount * rate) / 100;
+                    const totalAmount = amount + gstAmount;
+                    document.getElementById('gst-amount').value = gstAmount.toFixed(2);
+                    document.getElementById('total-amount').value = totalAmount.toFixed(2);
+                } else {
+                    alert('Please enter a valid amount');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
